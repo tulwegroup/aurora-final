@@ -1,5 +1,3 @@
-
-
 import { ExplorationCampaign, IntelReport, TaskingRequest, SystemStatus, DataObject, ConnectivityResult, PortfolioSummary, SystemMetrics, Anomaly, TargetResult, Voxel, LatentPoint, DrillTarget, SeismicSlice, SeismicJob, SeismicAxis, SeismicTrap, DiscoveryRecord, MineralAgentType } from './types';
 import { ACTIVE_CAMPAIGN, INTEL_REPORTS, TASKING_REQUESTS, ANOMALIES, GLOBAL_MINERAL_PROVINCES } from './constants';
 import { APP_CONFIG } from './config';
@@ -34,6 +32,24 @@ const STORAGE_KEYS = {
   GEE_STATUS: 'aurora_gee_active_persistent',
   SEISMIC_JOBS: 'aurora_seismic_jobs' 
 };
+
+export interface JobPayload {
+  region: {
+    type: 'point';
+    coordinates: [number, number]; // [lon, lat]
+    radius: number; // in km
+  };
+  resource_types: string[];
+  resolution: 'low' | 'medium' | 'high';
+  mode: 'smart' | 'premium';
+}
+
+export interface JobStatus {
+  job_id: string;
+  status: 'PENDING' | 'RUNNING' | 'COMPLETED' | 'FAILED';
+  progress: number;
+  current_task: string;
+}
 
 class GeoRNG {
     seed: number;
@@ -280,6 +296,23 @@ export class AuroraAPI {
           a.download = `AURORA_CAMPAIGN_${id}.json`;
           a.click();
       }
+  }
+
+  // --- JOB-BASED METHODS ---
+
+  static async submitScanJob(payload: JobPayload): Promise<{ job_id: string }> {
+    return this.apiFetch('/jobs', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  }
+
+  static async getJobStatus(jobId: string): Promise<JobStatus> {
+    return this.apiFetch(`/jobs/${jobId}/status`);
+  }
+
+  static async getJobResults(jobId: string): Promise<{ results: TargetResult[], drillTargets: DrillTarget[] }> {
+    return this.apiFetch(`/jobs/${jobId}/artifacts/results.json`);
   }
 
   static generateLatentPoints(type: string, lat: number, lon: number, radiusKm: number = 10): LatentPoint[] {
