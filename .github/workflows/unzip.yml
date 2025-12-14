@@ -1,4 +1,4 @@
-name: Unzip Aurora OSI Source
+name: Force Extract Aurora OSI Source
 
 on:
   workflow_dispatch:
@@ -10,15 +10,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Unzip source archive
+      - name: Install unzip
+        run: sudo apt-get update && sudo apt-get install -y unzip
+
+      - name: Show ZIP contents
+        run: unzip -l aurora-osi-v3.zip
+
+      - name: Extract ZIP
+        run: unzip -o aurora-osi-v3.zip -d extracted
+
+      - name: Show extracted structure
+        run: ls -R extracted
+
+      - name: Move extracted files to repo root
         run: |
-          unzip aurora-osi-v3.zip
-          rm aurora-osi-v3.zip
+          shopt -s dotglob
+          mv extracted/* . || true
+          rm -rf extracted
+          rm -f aurora-osi-v3.zip
 
       - name: Commit extracted files
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add .
-          git commit -m "Extract Aurora OSI source from zip"
+          git add -A
+          git commit -m "Force extract Aurora OSI source from zip" || echo "Nothing to commit"
           git push
