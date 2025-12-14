@@ -1,5 +1,3 @@
-/// <reference types="vite/client" />
-
 // Aurora OSI System Configuration
 // Defines connection parameters for Sovereign (Local) vs Cloud (GCP/Render) modes.
 
@@ -14,7 +12,8 @@ export const APP_CONFIG = {
         
         // Cloud URL (Phase 2)
         // Automatically populated by Render via VITE_API_URL
-        CLOUD: import.meta.env.VITE_API_URL || '',
+        // Using type assertion to avoid TS errors if types aren't perfectly set up
+        CLOUD: (import.meta as any).env?.VITE_API_URL || '',
         
         // Timeout configuration
         TIMEOUT_MS: 60000,
