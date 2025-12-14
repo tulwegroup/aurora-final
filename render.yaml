@@ -1,25 +1,21 @@
-
 services:
-  # 1. The Unified Backend Service (API + Worker)
+  # 1. Backend API (FastAPI via Docker)
   - type: web
     name: aurora-api
     runtime: docker
     root: backend
-    # plan: free 
-    numInstances: 1
     region: ohio
-    envVars:
-      - key: PORT
-        value: 10000
+    numInstances: 1
     disk:
       name: aurora-jobs-disk
       mountPath: /app/jobs
       sizeGB: 1
 
-  # 2. The Frontend Static Site
+  # 2. Frontend Static Site (Vite / React)
   - type: web
     name: aurora-frontend
     runtime: static
+    root: frontend
     buildCommand: npm install && npm run build
     publishDir: dist
     region: ohio
