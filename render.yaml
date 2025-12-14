@@ -1,0 +1,9 @@
+- type: web
+  name: aurora-frontend
+  runtime: static
+  root: .
+  buildCommand: npm install && npm run build
+  publishDir: dist
+  envVars:
+    - key: VITE_API_URL
+      value: https://aurora-api-m0g1.onrender.com
