@@ -19,7 +19,7 @@ const DataLakeView = lazy(() => import('./components/DataLakeView'));
 const DigitalTwinView = lazy(() => import('./components/DigitalTwinView'));
 const PortfolioView = lazy(() => import('./components/PortfolioView'));
 const SeismicView = lazy(() => import('./components/SeismicView'));
-const PlanetaryMapView = lazy(() => import('./components/PlanetaryMapView')); 
+const PlanetaryMapView = lazy(() => import('./components/PlanetaryMapView'));
 
 interface ErrorBoundaryProps {
   children?: ReactNode;
@@ -103,6 +103,28 @@ const App: React.FC = () => {
   });
 
   useEffect(() => {
+    // =====================================================
+    // AURORA BACKEND CONNECTIVITY TEST
+    // =====================================================
+    const API = import.meta.env.VITE_API_URL;
+    
+    if (API) {
+      fetch(`${API}/api/v1/meta`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("✅ Aurora backend connected:", data);
+        })
+        .catch((err) => {
+          console.error("❌ Aurora backend connection failed:", err);
+          // This helps debug if AuroraAPI.init() fails silently
+        });
+    } else {
+      console.warn("⚠️ VITE_API_URL not set in environment");
+    }
+    // =====================================================
+    // END OF CONNECTIVITY TEST
+    // =====================================================
+
     const bootSystem = async () => {
        setBootStep('Validating API Gateway...');
        const isConnected = await AuroraAPI.init();
