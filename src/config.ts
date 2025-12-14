@@ -1,5 +1,7 @@
+/// <reference types="vite/client" />
+
 // Aurora OSI System Configuration
-// Defines connection parameters for Sovereign (Local) vs Cloud (GCP) modes.
+// Defines connection parameters for Sovereign (Local) vs Cloud (GCP/Render) modes.
 
 export const APP_CONFIG = {
     // DEFAULT TO CLOUD to try the live link immediately
@@ -10,11 +12,11 @@ export const APP_CONFIG = {
         // Local Python FastAPI (Phase 1)
         LOCAL: 'http://localhost:8000',
         
-        // GCP Cloud Run / Cloud Shell (Phase 2)
-        // Hardcoded URL as per user request to fix connection issues.
-        CLOUD: 'https://8000-cs-995126546405-default.cs-europe-west4-fycr.cloudshell.dev',
+        // Cloud URL (Phase 2)
+        // Automatically populated by Render via VITE_API_URL
+        CLOUD: import.meta.env.VITE_API_URL || '',
         
-        // Increased timeout to 60s to allow Cloud SQL Cold Start & Handshake
+        // Timeout configuration
         TIMEOUT_MS: 60000,
 
         // Polling interval for checking job status.
@@ -25,7 +27,6 @@ export const APP_CONFIG = {
     FEATURES: {
         ENABLE_QUANTUM_BRIDGE: true, 
         ENABLE_LIVE_SATELLITE_FEED: true,
-        // New Flag: Disables procedural generation if real data is missing
         STRICT_DATA_MODE: true 
     }
 };
