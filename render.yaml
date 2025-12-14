@@ -1,0 +1,44 @@
+
+services:
+  # 1. The Backend API Service
+  - type: web
+    name: aurora-api
+    runtime: docker
+    root: backend
+    plan: free
+    numInstances: 1
+    region: ohio
+    envVars:
+      - key: PORT
+        value: 10000
+    disk:
+      name: aurora-jobs-disk
+      mountPath: /app/jobs
+      sizeGB: 1
+
+  # 2. The Background Worker Service
+  - type: worker
+    name: aurora-worker
+    runtime: docker
+    root: backend
+    region: ohio
+    disk:
+      name: aurora-jobs-disk
+      mountPath: /app/jobs
+      sizeGB: 1
+    # Overrides the CMD in Dockerfile to run the worker script instead of the web server
+    dockerCommand: python worker.py
+
+  # 3. The Frontend Static Site
+  - type: web
+    name: aurora-frontend
+    runtime: static
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    region: ohio
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: aurora-api
+          property: url
