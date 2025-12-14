@@ -12,9 +12,8 @@ services:
       sizeGB: 1
 
   # 2. Frontend Static Site (Vite / React)
-  - type: web
+  - type: static
     name: aurora-frontend
-    runtime: static
     root: frontend
     buildCommand: npm install && npm run build
     publishDir: dist
