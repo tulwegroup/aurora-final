@@ -18,6 +18,15 @@ export interface ExplorationCampaign {
     endDate: string;
     budget: number;
     status: 'active' | 'completed' | 'planned' | 'paused';
+    jobId?: string; // ← ADDED: For job polling
+    phaseProgress?: number; // ← ADDED: For progress tracking
+    phaseIndex?: number; // ← ADDED: For current phase
+    currentPhase?: CampaignPhase; // ← ADDED: For current phase
+    accuracyScore?: number; // ← ADDED: For results
+    results?: any[]; // ← ADDED: For results
+    drillTargets?: any[]; // ← ADDED: For drill targets
+    regionName?: string; // ← ADDED: Used in App.tsx
+    targetCoordinates?: string; // ← ADDED: Used in hiveMind simulation
 }
 
 // Neural Types
@@ -188,20 +197,21 @@ export interface PortfolioSummary {
 // Campaign Phase Types
 export type CampaignPhase = 'scoping' | 'recon' | 'drilling' | 'analysis' | 'reporting';
 
-// Export all types
-export type {
-    SystemStatus,
-    CampaignPhase
-};
-// Add these to your types.ts file
-
-export type AppView = 'dashboard' | 'map' | 'reports' | 'settings' | 'ushe';
+// UI Types
+export type AppView = 'dashboard' | 'map' | 'portfolio' | 'osil' | 'seismic' | 'ushe' | 'pcfc' | 'tmal' | 'qse' | 'twin' | 'ietl' | 'data' | 'config';
 
 export interface HiveMindState {
     isActive: boolean;
     agentsOnline: number;
     lastSync: string;
     processingQueue: number;
+    isScanning?: boolean; // ← ADDED: For compatibility with old code
+    scanGrid?: any[]; // ← ADDED: For compatibility with old code
+    activeAgents?: string[]; // ← ADDED: For compatibility with old code
+    logs?: string[]; // ← ADDED: For compatibility with old code
+    progress?: number; // ← ADDED: For compatibility with old code
+    hits?: number; // ← ADDED: For compatibility with old code
+    misses?: number; // ← ADDED: For compatibility with old code
 }
 
 export type MineralAgentType = 'prospector' | 'analyst' | 'validator' | 'scout';
@@ -216,4 +226,12 @@ export interface Discovery {
         lon: number;
     };
     timestamp: string;
+};
+
+// Export all types
+export type {
+    SystemStatus,
+    CampaignPhase,
+    AppView,
+    MineralAgentType
 };
