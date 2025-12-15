@@ -66,6 +66,25 @@ export interface LatentPoint {
     confidence: number;
 }
 
+// Add these to your types.ts file (anywhere)
+
+export interface TargetResult {
+    id: string;
+    confidence: number;
+    location: { lat: number; lon: number };
+    type: string;
+    depth?: number;
+}
+
+export interface ScanSector {
+    id: string;
+    x: number;
+    y: number;
+    status: 'pending' | 'analyzed' | 'anomaly';
+    opacity: number;
+}
+
+export type MineralAgentType = 'prospector' | 'analyst' | 'validator' | 'scout';
 // Spectral Types
 export interface SpectralData {
     wavelength: number;
