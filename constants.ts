@@ -10,7 +10,8 @@ import {
     IntelReport, 
     TaskingRequest,
     CampaignPhase,
-    NeuralModule
+    NeuralModule,
+    Qubit
 } from './types';
 
 // ==================== CORE CONSTANTS ====================
@@ -169,6 +170,45 @@ export const INGESTION_STREAMS: IngestionStream[] = [
         rate: 45,
         lastUpdated: '2025-12-15T02:45:00Z'
     }
+];
+
+// ==================== QUANTUM CONSTANTS ====================
+
+// Quantum Jobs
+export const QUANTUM_JOBS: QuantumJob[] = [
+    {
+        id: 'qjob-001',
+        name: 'Spectral Deconvolution',
+        qubits: 128,
+        status: 'running',
+        progress: 65
+    },
+    {
+        id: 'qjob-002',
+        name: 'Anomaly Correlation',
+        qubits: 256,
+        status: 'queued',
+        progress: 0
+    },
+    {
+        id: 'qjob-003',
+        name: 'Entanglement Mapping',
+        qubits: 512,
+        status: 'completed',
+        progress: 100
+    }
+];
+
+// Mock Qubits (for QSEView.tsx)
+export const MOCK_QUBITS: Qubit[] = [
+    { id: 'q1', state: '|0⟩', coherence: 0.95, temperature: 0.015, errorRate: 0.0012 },
+    { id: 'q2', state: '|1⟩', coherence: 0.92, temperature: 0.018, errorRate: 0.0018 },
+    { id: 'q3', state: '|+⟩', coherence: 0.88, temperature: 0.022, errorRate: 0.0023 },
+    { id: 'q4', state: '|-⟩', coherence: 0.91, temperature: 0.016, errorRate: 0.0015 },
+    { id: 'q5', state: '|0⟩', coherence: 0.94, temperature: 0.014, errorRate: 0.0011 },
+    { id: 'q6', state: '|1⟩', coherence: 0.89, temperature: 0.020, errorRate: 0.0020 },
+    { id: 'q7', state: '|+⟩', coherence: 0.93, temperature: 0.017, errorRate: 0.0016 },
+    { id: 'q8', state: '|-⟩', coherence: 0.90, temperature: 0.019, errorRate: 0.0019 }
 ];
 
 // ==================== RESOURCE & GEOLOGY CONSTANTS ====================
@@ -348,24 +388,6 @@ export const SEEPAGE_NETWORK = [
 ];
 
 // ==================== ADDITIONAL SYSTEM CONSTANTS ====================
-
-// Quantum Jobs
-export const QUANTUM_JOBS: QuantumJob[] = [
-    {
-        id: 'qjob-001',
-        name: 'Spectral Deconvolution',
-        qubits: 128,
-        status: 'running',
-        progress: 65
-    },
-    {
-        id: 'qjob-002',
-        name: 'Anomaly Correlation',
-        qubits: 256,
-        status: 'queued',
-        progress: 0
-    }
-];
 
 // Log Entries
 export const LOG_ENTRIES: LogEntry[] = [
