@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { INGESTION_STREAMS } from '../constants';
-import { SystemStatus, ExplorationCampaign, TaskingRequest } from '../types';
+type SystemStatus = 'ACTIVE' | 'IDLE' | 'ERROR' | 'MAINTENANCE' | 'CALIBRATING';
 import { AuroraAPI } from '../api';
 import { Server, Activity, Database, Wifi, AlertTriangle, CheckCircle, DownloadCloud, Globe, Satellite, Waves, Mountain, Clock, Calendar, Cloud, ArrowRight, Eye, Radar, Loader2, Lock } from 'lucide-react';
 
