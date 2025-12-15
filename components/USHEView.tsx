@@ -502,13 +502,17 @@ const USHEView: React.FC<USHEViewProps> = ({ campaign }) => {
                   <div className="flex items-center text-slate-500 mb-2 border-b border-slate-800 pb-1">
                       <Terminal size={12} className="mr-2" /> SYSTEM_LOGS
                   </div>
-                  {isTraining && <div className="text-aurora-400 animate-pulse">> Backpropagation active... updating weights</div>}
+                  {isTraining && (
+                    <div className="text-aurora-400 animate-pulse">
+                      {">"} Backpropagation active... updating weights
+                    </div>  
+                  )}
                   {calibrationLogs.map(log => (
                       <div key={log.id} className="mb-1">
                           <span className="text-slate-600">[{log.timestamp.split('T')[1].substring(0,8)}]</span> <span className="text-emerald-500">SUCCESS</span> Re-calibrated {log.region_id} (n={log.reference_count})
                       </div>
                   ))}
-                  <div className="text-slate-500">> System Ready.</div>
+                  <div className="text-slate-500">{">"} System Ready.</div>
               </div>
           </div>
       </div>
