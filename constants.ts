@@ -138,3 +138,72 @@ export const GLOBAL_MINERAL_PROVINCES = [
     { id: 'prov-004', name: 'Bushveld Complex', type: 'PGM', confidence: 0.96 },
     { id: 'prov-005', name: 'Chilean Nitrate Fields', type: 'Nitrate', confidence: 0.85 }
 ];
+// ===== ADD THESE CONSTANTS TO YOUR constants.ts FILE =====
+
+// Active Campaign
+export const ACTIVE_CAMPAIGN = {
+    id: 'camp-001',
+    name: 'Ghana Jubilee Offshore Analysis',
+    description: 'Deepwater hydrocarbon prospect evaluation',
+    region: 'Ghana Offshore',
+    startDate: '2025-12-01',
+    endDate: '2026-03-31',
+    budget: 2500000,
+    status: 'active' as const
+};
+
+// Intel Reports
+export const INTEL_REPORTS = [
+    {
+        id: 'intel-001',
+        title: 'Subsurface Anomaly Detected',
+        confidence: 0.87,
+        timestamp: '2025-12-14T10:30:00Z',
+        source: 'Sentinel-2 Analysis',
+        summary: 'Spectral signature indicates potential hydrocarbon accumulation'
+    },
+    {
+        id: 'intel-002',
+        title: 'Geochemical Correlation Match',
+        confidence: 0.92,
+        timestamp: '2025-12-13T14:20:00Z',
+        source: 'Core Sample Analysis',
+        summary: 'Elemental ratios match known productive reservoirs'
+    }
+];
+
+// Tasking Requests
+export const TASKING_REQUESTS = [
+    {
+        id: 'task-001',
+        priority: 'high' as const,
+        status: 'pending' as const,
+        requestedAt: '2025-12-14T14:00:00Z'
+    },
+    {
+        id: 'task-002',
+        priority: 'medium' as const,
+        status: 'approved' as const,
+        requestedAt: '2025-12-13T09:30:00Z',
+        completedAt: '2025-12-14T11:45:00Z'
+    }
+];
+
+// Global Mineral Provinces (already added, but here's the complete version)
+export const GLOBAL_MINERAL_PROVINCES = [
+    { id: 'prov-001', name: 'West African Craton', type: 'Gold', confidence: 0.92 },
+    { id: 'prov-002', name: 'Andean Copper Belt', type: 'Copper', confidence: 0.88 },
+    { id: 'prov-003', name: 'African Rift Valley', type: 'Helium', confidence: 0.95 },
+    { id: 'prov-004', name: 'Bushveld Complex', type: 'PGM', confidence: 0.96 },
+    { id: 'prov-005', name: 'Chilean Nitrate Fields', type: 'Nitrate', confidence: 0.85 }
+];
+
+// APP_CONFIG for config.ts (if needed)
+export const APP_CONFIG = {
+    appName: 'Aurora OSI v3',
+    version: '3.1.0',
+    environment: process.env.NODE_ENV || 'production',
+    apiBaseUrl: process.env.REACT_APP_API_URL || 'http://localhost:8000',
+    sentinelApiKey: process.env.REACT_APP_SENTINEL_KEY || '',
+    maxUploadSize: 100 * 1024 * 1024 // 100MB
+};
