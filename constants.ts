@@ -105,6 +105,33 @@ export const NEURAL_MODULES: NeuralModule[] = [
     }
 ];
 
+// ==================== TEMPORAL & GRAVITY DATA ====================
+
+// Temporal Data (for TMALView.tsx)
+export const TEMPORAL_DATA = [
+    { timestamp: '2025-11-01', value: 0.45, anomaly: false },
+    { timestamp: '2025-11-08', value: 0.52, anomaly: false },
+    { timestamp: '2025-11-15', value: 0.61, anomaly: true },
+    { timestamp: '2025-11-22', value: 0.58, anomaly: false },
+    { timestamp: '2025-11-29', value: 0.72, anomaly: true },
+    { timestamp: '2025-12-06', value: 0.65, anomaly: false },
+    { timestamp: '2025-12-13', value: 0.79, anomaly: true },
+    { timestamp: '2025-12-20', value: 0.68, anomaly: false }
+];
+
+// Gravity Spectrum (for TMALView.tsx)
+export const GRAVITY_SPECTRUM = [
+    { frequency: 0.1, amplitude: 0.25, phase: 0.1 },
+    { frequency: 0.2, amplitude: 0.38, phase: 0.3 },
+    { frequency: 0.3, amplitude: 0.52, phase: 0.5 },
+    { frequency: 0.4, amplitude: 0.67, phase: 0.7 },
+    { frequency: 0.5, amplitude: 0.85, phase: 0.9 },
+    { frequency: 0.6, amplitude: 0.72, phase: 1.1 },
+    { frequency: 0.7, amplitude: 0.58, phase: 1.3 },
+    { frequency: 0.8, amplitude: 0.45, phase: 1.5 },
+    { frequency: 0.9, amplitude: 0.32, phase: 1.7 },
+    { frequency: 1.0, amplitude: 0.28, phase: 1.9 }
+];
 // Drill Hole Database
 export const DRILL_HOLE_DATABASE = [
     { id: 'dh001', depth: 120, material: 'Quartz Vein', confidence: 0.85, anomaly: true, spectral_match: 0.92 },
