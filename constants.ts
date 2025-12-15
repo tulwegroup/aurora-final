@@ -130,12 +130,3 @@ export const SATELLITES: Satellite[] = [
     { id: 's3', name: 'Landsat 9', type: 'multispectral', status: 'ACTIVE', lastContact: '2025-12-14T23:30:00Z', resolution: 15 },
     { id: 's4', name: 'TERRA', type: 'thermal', status: 'MAINTENANCE', lastContact: '2025-12-14T22:00:00Z', resolution: 90 },
 ];
-
-// Export all constants
-export { 
-    NEURAL_MODULES, 
-    DRILL_HOLE_DATABASE, 
-    CAMPAIGN_PHASES,
-    SYSTEM_STATUS,
-    SATELLITES
-};
