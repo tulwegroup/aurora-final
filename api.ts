@@ -1,7 +1,7 @@
 
 import { ExplorationCampaign, IntelReport, TaskingRequest, DataObject, ConnectivityResult, PortfolioSummary, DiscoveryRecord, LatentPoint, DrillTarget, SeismicJob, SeismicSlice, SeismicAxis, SeismicTrap, MineralAgentType, TargetResult, Voxel } from './types';
 // FIX: Import GLOBAL_MINERAL_PROVINCES for getGeologicContext mock.
-import { ACTIVE_CAMPAIGN, INTEL_REPORTS, TASKING_REQUESTS, GLOBAL_MINERAL_PROVINCES } from './constants';
+import { GLOBAL_MINERAL_PROVINCES } from './constants';
 import { APP_CONFIG } from './config';
 
 type SystemStatus = 'ACTIVE' | 'IDLE' | 'ERROR' | 'MAINTENANCE' | 'CALIBRATING';
