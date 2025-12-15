@@ -66,8 +66,7 @@ export interface LatentPoint {
     confidence: number;
 }
 
-// Add these to your types.ts file (anywhere)
-
+// UI Component Types
 export interface TargetResult {
     id: string;
     confidence: number;
@@ -84,7 +83,6 @@ export interface ScanSector {
     opacity: number;
 }
 
-export type MineralAgentType = 'prospector' | 'analyst' | 'validator' | 'scout';
 // Spectral Types
 export interface SpectralData {
     wavelength: number;
@@ -157,6 +155,15 @@ export interface QuantumJob {
     qubits: number;
     status: 'queued' | 'running' | 'completed' | 'failed';
     progress: number;
+}
+
+// Quantum Types
+export interface Qubit {
+    id: string;
+    state: string;
+    coherence: number;
+    temperature: number;
+    errorRate: number;
 }
 
 export interface IngestionStream {
