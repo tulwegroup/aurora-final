@@ -13,6 +13,8 @@ import {
     NeuralModule
 } from './types';
 
+// ==================== CORE CONSTANTS ====================
+
 // Campaign Phases
 export const CAMPAIGN_PHASES: CampaignPhase[] = [
     'scoping', 'recon', 'drilling', 'analysis', 'reporting'
@@ -101,43 +103,6 @@ export const NEURAL_MODULES: NeuralModule[] = [
         icon: 'layers'
     }
 ];
-// Add to src/constants.ts (anywhere before the end of the file)
-
-// Ingestion Streams
-export const INGESTION_STREAMS = [
-    {
-        id: 'stream-s1',
-        source: 'Sentinel-1 SAR',
-        dataType: 'Synthetic Aperture Radar',
-        status: 'ACTIVE' as const,
-        rate: 125,
-        lastUpdated: '2025-12-15T04:45:00Z'
-    },
-    {
-        id: 'stream-s2',
-        source: 'Sentinel-2 MSI',
-        dataType: 'Multi-Spectral Imagery',
-        status: 'ACTIVE' as const,
-        rate: 85,
-        lastUpdated: '2025-12-15T04:30:00Z'
-    },
-    {
-        id: 'stream-gravity',
-        source: 'GRACE-FO',
-        dataType: 'Gravity Anomaly',
-        status: 'CALIBRATING' as const,
-        rate: 12,
-        lastUpdated: '2025-12-15T03:15:00Z'
-    },
-    {
-        id: 'stream-thermal',
-        source: 'Landsat 9 TIRS',
-        dataType: 'Thermal Infrared',
-        status: 'ACTIVE' as const,
-        rate: 45,
-        lastUpdated: '2025-12-15T02:45:00Z'
-    }
-];
 
 // Drill Hole Database
 export const DRILL_HOLE_DATABASE = [
@@ -160,6 +125,8 @@ export const SYSTEM_STATUS: Record<SystemStatus, string> = {
     CALIBRATING: 'Calibrating Sensors'
 };
 
+// ==================== SATELLITE & DATA CONSTANTS ====================
+
 // Satellite Database
 export const SATELLITES: Satellite[] = [
     { id: 's1', name: 'Sentinel-1A', type: 'sar', status: 'ACTIVE', lastContact: '2025-12-14T23:45:00Z', resolution: 5 },
@@ -168,19 +135,103 @@ export const SATELLITES: Satellite[] = [
     { id: 's4', name: 'TERRA', type: 'thermal', status: 'MAINTENANCE', lastContact: '2025-12-14T22:00:00Z', resolution: 90 },
 ];
 
-// ===== ALL MISSING CONSTANTS FOR DASHBOARD =====
+// Ingestion Streams (for OSILView.tsx)
+export const INGESTION_STREAMS: IngestionStream[] = [
+    {
+        id: 'stream-s1',
+        source: 'Sentinel-1 SAR',
+        dataType: 'Synthetic Aperture Radar',
+        status: 'ACTIVE',
+        rate: 125,
+        lastUpdated: '2025-12-15T04:45:00Z'
+    },
+    {
+        id: 'stream-s2',
+        source: 'Sentinel-2 MSI',
+        dataType: 'Multi-Spectral Imagery',
+        status: 'ACTIVE',
+        rate: 85,
+        lastUpdated: '2025-12-15T04:30:00Z'
+    },
+    {
+        id: 'stream-gravity',
+        source: 'GRACE-FO',
+        dataType: 'Gravity Anomaly',
+        status: 'CALIBRATING',
+        rate: 12,
+        lastUpdated: '2025-12-15T03:15:00Z'
+    },
+    {
+        id: 'stream-thermal',
+        source: 'Landsat 9 TIRS',
+        dataType: 'Thermal Infrared',
+        status: 'ACTIVE',
+        rate: 45,
+        lastUpdated: '2025-12-15T02:45:00Z'
+    }
+];
+
+// ==================== RESOURCE & GEOLOGY CONSTANTS ====================
 
 // Resource Catalog
 export const RESOURCE_CATALOG = [
-    { id: 'res-001', name: 'Gold (Au)', type: 'precious', valuePerTon: 65000000, rarity: 'rare', applications: ['Electronics', 'Jewelry', 'Reserves'] },
-    { id: 'res-002', name: 'Copper (Cu)', type: 'base', valuePerTon: 9500, rarity: 'common', applications: ['Wiring', 'Construction', 'Electronics'] },
-    { id: 'res-003', name: 'Helium-3 (³He)', type: 'noble', valuePerTon: 1400000000, rarity: 'extremely-rare', applications: ['Nuclear Fusion', 'Medical', 'Space Propulsion'] },
-    { id: 'res-004', name: 'Lithium (Li)', type: 'battery', valuePerTon: 78000, rarity: 'strategic', applications: ['Batteries', 'Ceramics', 'Pharmaceuticals'] },
-    { id: 'res-005', name: 'Platinum Group (PGM)', type: 'precious', valuePerTon: 32000000, rarity: 'rare', applications: ['Catalysts', 'Electronics', 'Medical'] },
-    { id: 'res-006', name: 'Rare Earth Elements', type: 'strategic', valuePerTon: 120000, rarity: 'critical', applications: ['Magnets', 'Lasers', 'Defense'] },
+    { 
+        id: 'res-001', 
+        name: 'Gold (Au)', 
+        category: 'Precious Metals',
+        type: 'precious', 
+        valuePerTon: 65000000, 
+        rarity: 'rare', 
+        applications: ['Electronics', 'Jewelry', 'Reserves'] 
+    },
+    { 
+        id: 'res-002', 
+        name: 'Copper (Cu)', 
+        category: 'Base Metals',
+        type: 'base', 
+        valuePerTon: 9500, 
+        rarity: 'common', 
+        applications: ['Wiring', 'Construction', 'Electronics'] 
+    },
+    { 
+        id: 'res-003', 
+        name: 'Helium-3 (³He)', 
+        category: 'Noble Gases',
+        type: 'noble', 
+        valuePerTon: 1400000000, 
+        rarity: 'extremely-rare', 
+        applications: ['Nuclear Fusion', 'Medical', 'Space Propulsion'] 
+    },
+    { 
+        id: 'res-004', 
+        name: 'Lithium (Li)', 
+        category: 'Battery Metals',
+        type: 'battery', 
+        valuePerTon: 78000, 
+        rarity: 'strategic', 
+        applications: ['Batteries', 'Ceramics', 'Pharmaceuticals'] 
+    },
+    { 
+        id: 'res-005', 
+        name: 'Platinum Group (PGM)', 
+        category: 'Precious Metals',
+        type: 'precious', 
+        valuePerTon: 32000000, 
+        rarity: 'rare', 
+        applications: ['Catalysts', 'Electronics', 'Medical'] 
+    },
+    { 
+        id: 'res-006', 
+        name: 'Rare Earth Elements', 
+        category: 'Strategic Minerals',
+        type: 'strategic', 
+        valuePerTon: 120000, 
+        rarity: 'critical', 
+        applications: ['Magnets', 'Lasers', 'Defense'] 
+    },
 ];
 
-// Anomalies (for Dashboard)
+// Anomalies (for Dashboard and USHEView)
 export const ANOMALIES: Anomaly[] = [
     { index: 1, wavelength: 450, z_score: 2.3, value: 0.78, severity: 'MEDIUM' },
     { index: 2, wavelength: 750, z_score: 3.8, value: 0.92, severity: 'HIGH' },
@@ -188,6 +239,17 @@ export const ANOMALIES: Anomaly[] = [
     { index: 4, wavelength: 1850, z_score: 4.2, value: 0.95, severity: 'HIGH' },
     { index: 5, wavelength: 2200, z_score: 2.1, value: 0.72, severity: 'MEDIUM' },
 ];
+
+// Global Mineral Provinces
+export const GLOBAL_MINERAL_PROVINCES = [
+    { id: 'prov-001', name: 'West African Craton', type: 'Gold', confidence: 0.92 },
+    { id: 'prov-002', name: 'Andean Copper Belt', type: 'Copper', confidence: 0.88 },
+    { id: 'prov-003', name: 'African Rift Valley', type: 'Helium', confidence: 0.95 },
+    { id: 'prov-004', name: 'Bushveld Complex', type: 'PGM', confidence: 0.96 },
+    { id: 'prov-005', name: 'Chilean Nitrate Fields', type: 'Nitrate', confidence: 0.85 }
+];
+
+// ==================== CAMPAIGN & MISSION CONSTANTS ====================
 
 // Active Campaign
 export const ACTIVE_CAMPAIGN = {
@@ -202,7 +264,7 @@ export const ACTIVE_CAMPAIGN = {
 };
 
 // Intel Reports
-export const INTEL_REPORTS = [
+export const INTEL_REPORTS: IntelReport[] = [
     {
         id: 'intel-001',
         title: 'Subsurface Anomaly Detected',
@@ -222,30 +284,108 @@ export const INTEL_REPORTS = [
 ];
 
 // Tasking Requests
-export const TASKING_REQUESTS = [
+export const TASKING_REQUESTS: TaskingRequest[] = [
     {
         id: 'task-001',
-        priority: 'high' as const,
-        status: 'pending' as const,
+        priority: 'high',
+        status: 'pending',
         requestedAt: '2025-12-14T14:00:00Z'
     },
     {
         id: 'task-002',
-        priority: 'medium' as const,
-        status: 'approved' as const,
+        priority: 'medium',
+        status: 'approved',
         requestedAt: '2025-12-13T09:30:00Z',
         completedAt: '2025-12-14T11:45:00Z'
     }
 ];
 
-// Global Mineral Provinces
-export const GLOBAL_MINERAL_PROVINCES = [
-    { id: 'prov-001', name: 'West African Craton', type: 'Gold', confidence: 0.92 },
-    { id: 'prov-002', name: 'Andean Copper Belt', type: 'Copper', confidence: 0.88 },
-    { id: 'prov-003', name: 'African Rift Valley', type: 'Helium', confidence: 0.95 },
-    { id: 'prov-004', name: 'Bushveld Complex', type: 'PGM', confidence: 0.96 },
-    { id: 'prov-005', name: 'Chilean Nitrate Fields', type: 'Nitrate', confidence: 0.85 }
+// ==================== PCFC & CAUSAL ANALYSIS CONSTANTS ====================
+
+// Causal Nodes (for PCFCView.tsx)
+export const CAUSAL_NODES: CausalNode[] = [
+    {
+        id: 'node-001',
+        name: 'Subsurface Permeability',
+        type: 'cause',
+        strength: 0.87,
+        connections: ['node-002', 'node-003']
+    },
+    {
+        id: 'node-002',
+        name: 'Mineral Precipitation',
+        type: 'effect',
+        strength: 0.92,
+        connections: ['node-001']
+    },
+    {
+        id: 'node-003',
+        name: 'Thermal Gradient',
+        type: 'cause',
+        strength: 0.78,
+        connections: ['node-002', 'node-004']
+    },
+    {
+        id: 'node-004',
+        name: 'Fluid Migration',
+        type: 'mediator',
+        strength: 0.85,
+        connections: ['node-001', 'node-003']
+    }
 ];
+
+// Seepage Network (for PCFCView.tsx)
+export const SEEPAGE_NETWORK = [
+    { depth: 0, seepage: 0.2, anomaly: false },
+    { depth: 50, seepage: 0.3, anomaly: false },
+    { depth: 100, seepage: 0.5, anomaly: true },
+    { depth: 150, seepage: 0.8, anomaly: true },
+    { depth: 200, seepage: 0.6, anomaly: false },
+    { depth: 250, seepage: 0.4, anomaly: false },
+    { depth: 300, seepage: 0.7, anomaly: true },
+    { depth: 350, seepage: 0.9, anomaly: true },
+    { depth: 400, seepage: 0.5, anomaly: false }
+];
+
+// ==================== ADDITIONAL SYSTEM CONSTANTS ====================
+
+// Quantum Jobs
+export const QUANTUM_JOBS: QuantumJob[] = [
+    {
+        id: 'qjob-001',
+        name: 'Spectral Deconvolution',
+        qubits: 128,
+        status: 'running',
+        progress: 65
+    },
+    {
+        id: 'qjob-002',
+        name: 'Anomaly Correlation',
+        qubits: 256,
+        status: 'queued',
+        progress: 0
+    }
+];
+
+// Log Entries
+export const LOG_ENTRIES: LogEntry[] = [
+    {
+        id: 1,
+        timestamp: '2025-12-14T23:49:12Z',
+        message: 'AURORA OSI v3.1.0 initialized',
+        type: 'system',
+        source: 'Kernel'
+    },
+    {
+        id: 2,
+        timestamp: '2025-12-14T23:49:15Z',
+        message: 'Neural modules: 8/8 loaded',
+        type: 'success',
+        source: 'USHE'
+    }
+];
+
+// ==================== APP CONFIGURATION ====================
 
 // APP_CONFIG for config.ts (if needed)
 export const APP_CONFIG = {
