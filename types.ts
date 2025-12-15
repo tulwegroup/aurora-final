@@ -193,3 +193,27 @@ export type {
     SystemStatus,
     CampaignPhase
 };
+// Add these to your types.ts file
+
+export type AppView = 'dashboard' | 'map' | 'reports' | 'settings' | 'ushe';
+
+export interface HiveMindState {
+    isActive: boolean;
+    agentsOnline: number;
+    lastSync: string;
+    processingQueue: number;
+}
+
+export type MineralAgentType = 'prospector' | 'analyst' | 'validator' | 'scout';
+
+export interface Discovery {
+    id: string;
+    name: string;
+    type: string;
+    confidence: number;
+    location: {
+        lat: number;
+        lon: number;
+    };
+    timestamp: string;
+};
