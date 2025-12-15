@@ -20,6 +20,7 @@ export interface ExplorationCampaign {
     status: 'active' | 'completed' | 'planned' | 'paused';
 }
 
+// Neural Types
 export interface NeuralModule {
     id: string;
     name: string;
@@ -31,6 +32,7 @@ export interface NeuralModule {
     icon: 'cpu' | 'activity' | 'layers' | 'network' | 'zap';
 }
 
+// Data Types
 export interface DrillRecord {
     id: string;
     depth: number;
@@ -55,6 +57,7 @@ export interface LatentPoint {
     confidence: number;
 }
 
+// Spectral Types
 export interface SpectralData {
     wavelength: number;
     Optical: number;
@@ -162,64 +165,31 @@ export interface TaskingRequest {
     completedAt?: string;
 }
 
-// Campaign Phase Types
-export type CampaignPhase = 'scoping' | 'recon' | 'drilling' | 'analysis' | 'reporting';
-
-// Additional types that might be missing
-export interface Anomaly {
-    index: number;
-    wavelength: number;
-    z_score: number;
-    value: number;
-    severity: 'LOW' | 'MEDIUM' | 'HIGH';
-}
-
-export interface LogEntry {
-    id: number;
+// API Types (from your api.ts import)
+export interface DataObject {
+    id: string;
+    type: string;
     timestamp: string;
-    message: string;
-    type: 'info' | 'warning' | 'error' | 'success';
-    source: string;
+    data: any;
 }
 
-export interface QuantumJob {
-    id: string;
-    name: string;
-    qubits: number;
-    status: 'queued' | 'running' | 'completed' | 'failed';
-    progress: number;
+export interface ConnectivityResult {
+    connected: boolean;
+    latency: number;
+    timestamp: string;
 }
 
-export interface IngestionStream {
-    id: string;
-    source: string;
-    dataType: string;
-    status: SystemStatus;
-    rate: number;
+export interface PortfolioSummary {
+    totalValue: number;
+    activeProjects: number;
     lastUpdated: string;
 }
 
-export interface CausalNode {
-    id: string;
-    name: string;
-    type: 'cause' | 'effect' | 'mediator';
-    strength: number;
-    connections: string[];
-}
+// Campaign Phase Types
+export type CampaignPhase = 'scoping' | 'recon' | 'drilling' | 'analysis' | 'reporting';
 
-export interface IntelReport {
-    id: string;
-    title: string;
-    confidence: number;
-    timestamp: string;
-    source: string;
-    summary: string;
-}
-
-export interface TaskingRequest {
-    id: string;
-    priority: 'low' | 'medium' | 'high' | 'critical';
-    status: 'pending' | 'approved' | 'rejected' | 'completed';
-    requestedAt: string;
-    completedAt?: string;
-}
+// Export all types
+export type {
+    SystemStatus,
+    CampaignPhase
+};
