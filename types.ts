@@ -164,3 +164,62 @@ export interface TaskingRequest {
 
 // Campaign Phase Types
 export type CampaignPhase = 'scoping' | 'recon' | 'drilling' | 'analysis' | 'reporting';
+
+// Additional types that might be missing
+export interface Anomaly {
+    index: number;
+    wavelength: number;
+    z_score: number;
+    value: number;
+    severity: 'LOW' | 'MEDIUM' | 'HIGH';
+}
+
+export interface LogEntry {
+    id: number;
+    timestamp: string;
+    message: string;
+    type: 'info' | 'warning' | 'error' | 'success';
+    source: string;
+}
+
+export interface QuantumJob {
+    id: string;
+    name: string;
+    qubits: number;
+    status: 'queued' | 'running' | 'completed' | 'failed';
+    progress: number;
+}
+
+export interface IngestionStream {
+    id: string;
+    source: string;
+    dataType: string;
+    status: SystemStatus;
+    rate: number;
+    lastUpdated: string;
+}
+
+export interface CausalNode {
+    id: string;
+    name: string;
+    type: 'cause' | 'effect' | 'mediator';
+    strength: number;
+    connections: string[];
+}
+
+export interface IntelReport {
+    id: string;
+    title: string;
+    confidence: number;
+    timestamp: string;
+    source: string;
+    summary: string;
+}
+
+export interface TaskingRequest {
+    id: string;
+    priority: 'low' | 'medium' | 'high' | 'critical';
+    status: 'pending' | 'approved' | 'rejected' | 'completed';
+    requestedAt: string;
+    completedAt?: string;
+}
