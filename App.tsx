@@ -1,9 +1,8 @@
-
 import React, { Component, useState, useEffect, Suspense, lazy, type ErrorInfo, type ReactNode } from 'react';
 import Sidebar from './components/Sidebar';
 import { Bell, Search, User, ShieldCheck, Server, AlertTriangle, RefreshCw, Loader2, ChevronRight } from 'lucide-react';
-import { ExplorationCampaign, CAMPAIGN_PHASES, AppView, HiveMindState, MineralAgentType } from './types';
-import { ACTIVE_CAMPAIGN } from './constants';
+import { ExplorationCampaign, AppView, HiveMindState, MineralAgentType } from './types';
+import { ACTIVE_CAMPAIGN, CAMPAIGN_PHASES } from './constants';  // ← FIXED: Import CAMPAIGN_PHASES from constants
 import { AuroraAPI } from './api';
 import { APP_CONFIG } from './config';
 
@@ -100,7 +99,10 @@ const App: React.FC = () => {
   const [showConnectionWarning, setShowConnectionWarning] = useState(false);
 
   const [hiveMind, setHiveMind] = useState<HiveMindState>({
-      isScanning: false, scanGrid: [], activeAgents: ['Au'], logs: [], progress: 0, hits: 0, misses: 0
+      isActive: false,
+      agentsOnline: 0,
+      lastSync: new Date().toISOString(),
+      processingQueue: 0
   });
 
   useEffect(() => {
@@ -127,7 +129,7 @@ const App: React.FC = () => {
   // --- GLOBAL JOB POLLING ---
   useEffect(() => {
     const pollJobStatus = async () => {
-      if (campaign.status === 'Active' && campaign.jobId) {
+      if (campaign.status === 'active' && campaign.jobId) {
         try {
           const status = await AuroraAPI.getJobStatus(campaign.jobId);
           
@@ -145,7 +147,7 @@ const App: React.FC = () => {
             const results = await AuroraAPI.getJobResults(campaign.jobId);
             updatedCampaign = {
               ...updatedCampaign,
-              status: 'Completed',
+              status: 'completed',
               jobId: undefined, // Clear job ID
               phaseProgress: 100,
               accuracyScore: 0.95, // Assume high accuracy on completion
@@ -157,7 +159,7 @@ const App: React.FC = () => {
           } else if (status.status === 'FAILED') {
             updatedCampaign = {
               ...updatedCampaign,
-              status: 'Paused', // Or a new 'Failed' status
+              status: 'paused', // Or a new 'Failed' status
               jobId: undefined,
             };
           }
@@ -167,63 +169,14 @@ const App: React.FC = () => {
         } catch (error) {
           console.error("Failed to poll job status:", error);
           // If polling fails, pause the campaign to prevent infinite loops
-          setCampaign(c => ({ ...c, status: 'Paused' }));
+          setCampaign(c => ({ ...c, status: 'paused' }));
         }
       }
     };
 
-    const intervalId = setInterval(pollJobStatus, APP_CONFIG.API.POLLING_INTERVAL_MS);
+    const intervalId = setInterval(pollJobStatus, APP_CONFIG.API?.POLLING_INTERVAL_MS || 5000);
     return () => clearInterval(intervalId);
   }, [campaign]);
-
-  // --- HIVEMIND SIMULATION LOGIC ---
-  useEffect(() => {
-      let isEffectActive = true;
-      let timer: any = null;
-      if (!hiveMind.isScanning) return;
-      
-      const processNextSector = async () => {
-          if (!isEffectActive) return;
-          const sectorIdx = hiveMind.scanGrid.findIndex(s => s.status === 'pending');
-          if (sectorIdx === -1) {
-              setHiveMind(prev => ({ ...prev, isScanning: false, logs: [...prev.logs, `[${new Date().toLocaleTimeString()}] HiveMind Scan Complete.`] }));
-              return;
-          }
-          let lat = 0, lon = 0;
-          try {
-              const nums = campaign.targetCoordinates.match(/-?\d+(\.\d+)?/g);
-              if (nums && nums.length >= 2) { lat = parseFloat(nums[0]); if (campaign.targetCoordinates.includes('S')) lat = -lat; lon = parseFloat(nums[1]); if (campaign.targetCoordinates.includes('W')) lon = -lon; }
-          } catch(e) {}
-          
-          const currentSector = hiveMind.scanGrid[sectorIdx];
-          const sectorLat = lat + ((currentSector.y - 5) * 0.05); 
-          const sectorLon = lon + ((currentSector.x - 5) * 0.05);
-          let hitFound = false;
-          let discoveryType = '';
-          await new Promise(r => setTimeout(r, 50)); 
-          if (!isEffectActive) return;
-          try {
-              for (const agentType of hiveMind.activeAgents) {
-                  const discovery = await AuroraAPI.runAgentScan(agentType as MineralAgentType, sectorLat, sectorLon, campaign.regionName);
-                  if (discovery) { hitFound = true; discoveryType = discovery.resourceType; break; }
-              }
-          } catch (e) { console.error("Agent Scan Error:", e); }
-          if (!isEffectActive) return;
-          setHiveMind(prev => {
-              if(!prev.isScanning) return prev;
-              const newGrid = [...prev.scanGrid];
-              if (sectorIdx >= 0 && sectorIdx < newGrid.length) { newGrid[sectorIdx] = { ...newGrid[sectorIdx], status: hitFound ? 'anomaly' : 'analyzed', opacity: hitFound ? 0.8 : 0.2 }; }
-              const time = new Date().toLocaleTimeString();
-              const newLog = hitFound ? `[${time}] >>> DISCOVERY: ${discoveryType} in Sector ${currentSector.id}!` : null;
-              const updatedLogs = newLog ? [...prev.logs, newLog] : prev.logs;
-              if (updatedLogs.length > 100) updatedLogs.splice(0, updatedLogs.length - 100);
-              return { ...prev, scanGrid: newGrid, logs: updatedLogs, hits: prev.hits + (hitFound ? 1 : 0), misses: prev.misses + (hitFound ? 0 : 1) };
-          });
-      };
-      timer = setTimeout(processNextSector, 50);
-      return () => { isEffectActive = false; if (timer) clearTimeout(timer); };
-  }, [hiveMind.isScanning, hiveMind.scanGrid, hiveMind.activeAgents, campaign.targetCoordinates, campaign.regionName]);
-
 
   const handleLaunchCampaign = async (newCampaign: ExplorationCampaign) => {
     setCampaign(newCampaign);
@@ -320,9 +273,9 @@ const App: React.FC = () => {
             </div>
             <div className="flex items-center space-x-3 pl-6 border-l border-aurora-800">
               <div className="text-right hidden sm:block">
-                <p className="text-sm font-medium text-white">{campaign.regionName || campaign.name}</p>
+                <p className="text-sm font-medium text-white">{campaign.region || campaign.name}</p>
                 <p className="text-xs text-aurora-500 flex items-center justify-end">
-                    <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${campaign.status === 'Active' ? 'bg-emerald-500 animate-pulse' : 'bg-slate-500'}`}></span>
+                    <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${campaign.status === 'active' ? 'bg-emerald-500 animate-pulse' : 'bg-slate-500'}`}></span>
                     {campaign.status}
                 </p>
               </div>
