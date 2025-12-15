@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { ExplorationCampaign, AppView, CAMPAIGN_PHASES, Anomaly, Satellite, TargetResult, ScanSector, MineralAgentType, HiveMindState } from '../types';
-import { RESOURCE_CATALOG, ANOMALIES, SATELLITES } from '../constants';
+import { ExplorationCampaign, AppView, Anomaly, Satellite, TargetResult, ScanSector, MineralAgentType, HiveMindState } from '../types';
+import { RESOURCE_CATALOG, ANOMALIES, SATELLITES, CAMPAIGN_PHASES } from '../constants';
 import MapVisualization from './MapVisualization';
 import { Play, Upload, Plus, Target, Activity, Zap, Search, ChevronRight, AlertTriangle, CheckCircle, MapPin, Database, Radar, Globe, Crosshair, Loader2, FileText, Terminal, Bot, LayoutGrid, Users, Maximize, StopCircle, Cpu, Pause, Wifi, Lock, ShieldCheck } from 'lucide-react';
 import { AuroraAPI } from '../api';
