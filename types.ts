@@ -40,7 +40,19 @@ export interface NeuralModule {
     status: 'online' | 'offline' | 'training';
     icon: 'cpu' | 'activity' | 'layers' | 'network' | 'zap';
 }
+// Add to your types.ts file (anywhere)
 
+export interface TemporalDataPoint {
+    timestamp: string;
+    value: number;
+    anomaly: boolean;
+}
+
+export interface GravitySpectrumPoint {
+    frequency: number;
+    amplitude: number;
+    phase: number;
+}
 // Data Types
 export interface DrillRecord {
     id: string;
