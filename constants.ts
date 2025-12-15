@@ -131,7 +131,26 @@ export const SATELLITES: Satellite[] = [
     { id: 's4', name: 'TERRA', type: 'thermal', status: 'MAINTENANCE', lastContact: '2025-12-14T22:00:00Z', resolution: 90 },
 ];
 
-// ===== ALL NEW CONSTANTS =====
+// ===== ALL MISSING CONSTANTS FOR DASHBOARD =====
+
+// Resource Catalog
+export const RESOURCE_CATALOG = [
+    { id: 'res-001', name: 'Gold (Au)', type: 'precious', valuePerTon: 65000000, rarity: 'rare', applications: ['Electronics', 'Jewelry', 'Reserves'] },
+    { id: 'res-002', name: 'Copper (Cu)', type: 'base', valuePerTon: 9500, rarity: 'common', applications: ['Wiring', 'Construction', 'Electronics'] },
+    { id: 'res-003', name: 'Helium-3 (³He)', type: 'noble', valuePerTon: 1400000000, rarity: 'extremely-rare', applications: ['Nuclear Fusion', 'Medical', 'Space Propulsion'] },
+    { id: 'res-004', name: 'Lithium (Li)', type: 'battery', valuePerTon: 78000, rarity: 'strategic', applications: ['Batteries', 'Ceramics', 'Pharmaceuticals'] },
+    { id: 'res-005', name: 'Platinum Group (PGM)', type: 'precious', valuePerTon: 32000000, rarity: 'rare', applications: ['Catalysts', 'Electronics', 'Medical'] },
+    { id: 'res-006', name: 'Rare Earth Elements', type: 'strategic', valuePerTon: 120000, rarity: 'critical', applications: ['Magnets', 'Lasers', 'Defense'] },
+];
+
+// Anomalies (for Dashboard)
+export const ANOMALIES: Anomaly[] = [
+    { index: 1, wavelength: 450, z_score: 2.3, value: 0.78, severity: 'MEDIUM' },
+    { index: 2, wavelength: 750, z_score: 3.8, value: 0.92, severity: 'HIGH' },
+    { index: 3, wavelength: 1200, z_score: 1.9, value: 0.65, severity: 'LOW' },
+    { index: 4, wavelength: 1850, z_score: 4.2, value: 0.95, severity: 'HIGH' },
+    { index: 5, wavelength: 2200, z_score: 2.1, value: 0.72, severity: 'MEDIUM' },
+];
 
 // Active Campaign
 export const ACTIVE_CAMPAIGN = {
@@ -198,5 +217,8 @@ export const APP_CONFIG = {
     environment: process.env.NODE_ENV || 'production',
     apiBaseUrl: process.env.REACT_APP_API_URL || 'http://localhost:8000',
     sentinelApiKey: process.env.REACT_APP_SENTINEL_KEY || '',
-    maxUploadSize: 100 * 1024 * 1024 // 100MB
+    maxUploadSize: 100 * 1024 * 1024, // 100MB
+    API: {
+        POLLING_INTERVAL_MS: 5000
+    }
 };
