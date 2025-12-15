@@ -130,15 +130,8 @@ export const SATELLITES: Satellite[] = [
     { id: 's3', name: 'Landsat 9', type: 'multispectral', status: 'ACTIVE', lastContact: '2025-12-14T23:30:00Z', resolution: 15 },
     { id: 's4', name: 'TERRA', type: 'thermal', status: 'MAINTENANCE', lastContact: '2025-12-14T22:00:00Z', resolution: 90 },
 ];
-// Add this to your constants.ts file
-export const GLOBAL_MINERAL_PROVINCES = [
-    { id: 'prov-001', name: 'West African Craton', type: 'Gold', confidence: 0.92 },
-    { id: 'prov-002', name: 'Andean Copper Belt', type: 'Copper', confidence: 0.88 },
-    { id: 'prov-003', name: 'African Rift Valley', type: 'Helium', confidence: 0.95 },
-    { id: 'prov-004', name: 'Bushveld Complex', type: 'PGM', confidence: 0.96 },
-    { id: 'prov-005', name: 'Chilean Nitrate Fields', type: 'Nitrate', confidence: 0.85 }
-];
-// ===== ADD THESE CONSTANTS TO YOUR constants.ts FILE =====
+
+// ===== ALL NEW CONSTANTS =====
 
 // Active Campaign
 export const ACTIVE_CAMPAIGN = {
@@ -189,7 +182,7 @@ export const TASKING_REQUESTS = [
     }
 ];
 
-// Global Mineral Provinces (already added, but here's the complete version)
+// Global Mineral Provinces
 export const GLOBAL_MINERAL_PROVINCES = [
     { id: 'prov-001', name: 'West African Craton', type: 'Gold', confidence: 0.92 },
     { id: 'prov-002', name: 'Andean Copper Belt', type: 'Copper', confidence: 0.88 },
