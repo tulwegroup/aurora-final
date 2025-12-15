@@ -101,6 +101,43 @@ export const NEURAL_MODULES: NeuralModule[] = [
         icon: 'layers'
     }
 ];
+// Add to src/constants.ts (anywhere before the end of the file)
+
+// Ingestion Streams
+export const INGESTION_STREAMS = [
+    {
+        id: 'stream-s1',
+        source: 'Sentinel-1 SAR',
+        dataType: 'Synthetic Aperture Radar',
+        status: 'ACTIVE' as const,
+        rate: 125,
+        lastUpdated: '2025-12-15T04:45:00Z'
+    },
+    {
+        id: 'stream-s2',
+        source: 'Sentinel-2 MSI',
+        dataType: 'Multi-Spectral Imagery',
+        status: 'ACTIVE' as const,
+        rate: 85,
+        lastUpdated: '2025-12-15T04:30:00Z'
+    },
+    {
+        id: 'stream-gravity',
+        source: 'GRACE-FO',
+        dataType: 'Gravity Anomaly',
+        status: 'CALIBRATING' as const,
+        rate: 12,
+        lastUpdated: '2025-12-15T03:15:00Z'
+    },
+    {
+        id: 'stream-thermal',
+        source: 'Landsat 9 TIRS',
+        dataType: 'Thermal Infrared',
+        status: 'ACTIVE' as const,
+        rate: 45,
+        lastUpdated: '2025-12-15T02:45:00Z'
+    }
+];
 
 // Drill Hole Database
 export const DRILL_HOLE_DATABASE = [
